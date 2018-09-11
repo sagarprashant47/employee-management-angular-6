@@ -21,10 +21,15 @@
                     <a [routerLink]='["/counter"]' (click)='collapse()'>
                         <span class='glyphicon glyphicon-education'></span> Counter
                     </a>
+                </li>                
+                <li [routerLinkActive]='["link-active"]'>
+                    <a [routerLink]='["/employees"]' (click)='collapse()'>
+                        <span class='glyphicon glyphicon-th-list'></span> Employees
+                    </a>
                 </li>
                 <li [routerLinkActive]='["link-active"]'>
-                    <a [routerLink]='["/fetch-data"]' (click)='collapse()'>
-                        <span class='glyphicon glyphicon-th-list'></span> Fetch data
+                    <a [routerLink]='["/departments"]' (click)='collapse()'>
+                        <span class='glyphicon glyphicon-th-list'></span> Departments
                     </a>
                 </li>
             </ul>

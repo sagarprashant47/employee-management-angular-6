@@ -50,16 +50,13 @@
               "vendorChunk": false,
               "buildOptimizer": true
             },
-            "serve": {              
-              "optimization": false,
-              "outputHashing": "none",
-              "sourceMap": true,
-              "extractCss": true,
-              "namedChunks": false,
-              "aot": false,
-              "extractLicenses": false,
-              "vendorChunk": true,
-              "buildOptimizer": false
+            "hmr": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.hmr.ts"
+                }
+              ]
             }
           }
         },
@@ -71,6 +68,11 @@
           "configurations": {
             "production": {
               "browserTarget": "FormApp:build:production"
+            },
+            "hmr": {
+              "hmr": true,
+              "hmrWarning": false,
+              "browserTarget": "FormApp:build:hmr"
             }
           }
         },
