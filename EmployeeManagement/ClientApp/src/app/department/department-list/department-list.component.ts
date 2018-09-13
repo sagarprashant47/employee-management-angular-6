@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Department } from '../../model/department.model';
 import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-department-list',
@@ -9,13 +11,40 @@ import { HttpClient } from '@angular/common/http';
 })
 export class DepartmentListComponent implements OnInit {
   departmentList: Department[];
+  IsLoading: boolean;
+//   departments: Department[] = [{
+//     id: 1,
+//     name: 'HR',
+//     employees: [
+//         {
+//             id: 1,
+//             name: 'Chintan'
+//         }
+//     ]
+// },
+// {
+//     id: 2,
+//     name: 'IT',
+//     employees: [
+//         {
+//             id: 3,
+//             name: 'Aamir'
+//         }
+//     ]
+// }];
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.http.get<Department[]>('/api/departments').subscribe(result => {
-      this.departmentList = result;
+    // this.departmentList = this.departments;
+    this.IsLoading = true;
+    this.route.data.subscribe((data: {departmentList: Department[]}) => {
+      this.departmentList = data.departmentList;
     });
+  }
+
+  OnEmployeesStrike(value: boolean) {
+
   }
 
 }

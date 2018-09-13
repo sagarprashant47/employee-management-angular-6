@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using EmployeeManagement.Model;
+using System.Threading;
 
 namespace EmployeeManagement.Controllers
 {
@@ -23,7 +24,7 @@ namespace EmployeeManagement.Controllers
         // GET: api/Departments
         [HttpGet]
         public IEnumerable<Department> GetDepartments()
-        {
+        {            
             return _context.Departments;
         }
 
@@ -83,7 +84,7 @@ namespace EmployeeManagement.Controllers
 
         // POST: api/Departments
         [HttpPost]
-        public async Task<IActionResult> PostDepartment([FromBody] Department department)
+        public IActionResult PostDepartment([FromBody] Department department)
         {
             if (!ModelState.IsValid)
             {
@@ -91,7 +92,7 @@ namespace EmployeeManagement.Controllers
             }
 
             _context.Departments.Add(department);
-            await _context.SaveChangesAsync();
+            _context.SaveChangesAsync();
 
             return CreatedAtAction("GetDepartment", new { id = department.Id }, department);
         }

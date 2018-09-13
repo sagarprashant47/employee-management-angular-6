@@ -8,35 +8,36 @@ import { SaveEditDepartmentGuard } from './save-edit-department.guard';
 import { Routes, RouterModule } from '@angular/router';
 import { CoreModule } from '../core/core.module';
 import { HttpClientModule } from '@angular/common/http';
-import { DepartmentComponent } from './department.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { DepartmentListResolver } from './department-list.resolver';
+import { DepartmentAppendPipe } from './department-append.pipe';
+import { HighlightDirective } from './highlight.directive';
+import { DepartmentChildDetailComponent } from './department-child-detail/department-child-detail.component';
+
 
 const routes: Routes = [
   {
     path: 'department',
-    component: DepartmentComponent,
-    children: [
-      {
-        path: '',
-        component: DepartmentListComponent
-      },
-      {
-        path: 'add',
-        component: DepartmentAddEditComponent
-      },
-      {
-        path: 'edit/:id',
-        component: DepartmentAddEditComponent,
-        canActivateChild: [EditDepartmentGuard],
-        canDeactivate: [SaveEditDepartmentGuard]
-      },
-      {
-        path: 'details/:id',
-        component: DepartmentDetailsComponent,
-        canActivateChild: [EditDepartmentGuard]
-      }
-    ]
-  }
+    component: DepartmentListComponent,
+    resolve: {
+      departmentList: DepartmentListResolver
+    },
+  },
+    {
+      path: 'department/add',
+      component: DepartmentAddEditComponent
+    },
+    {
+      path: 'department/edit/:id',
+      component: DepartmentAddEditComponent,
+      canActivate: [EditDepartmentGuard],
+      canDeactivate: [SaveEditDepartmentGuard]
+    },
+    {
+      path: 'department/details/:id',
+      component: DepartmentDetailsComponent,
+      canActivate: [EditDepartmentGuard]
+    }
 ];
 
 @NgModule({
@@ -49,10 +50,13 @@ const routes: Routes = [
   ],
   exports: [RouterModule],
   declarations: [
-    DepartmentComponent,
     DepartmentListComponent,
     DepartmentAddEditComponent,
-    DepartmentDetailsComponent
-  ]
+    DepartmentDetailsComponent,
+    DepartmentAppendPipe,
+    HighlightDirective,
+    DepartmentChildDetailComponent
+  ],
+  providers: [DepartmentListResolver]
 })
 export class DepartmentModule {}

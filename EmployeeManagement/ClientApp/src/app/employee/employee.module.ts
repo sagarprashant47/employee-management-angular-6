@@ -7,21 +7,23 @@ import { Routes, RouterModule } from '@angular/router';
 import { EditEmployeeGuard } from './edit-employee.guard';
 import { SaveEditEmployeeGuard } from './save-edit-employee.guard';
 import { CoreModule } from '../core/core.module';
+import { EmployeeGenderPipe } from './employee-gender.pipe';
 
 const routes: Routes = [{
-  path: 'employees', component: EmployeeListComponent
-}, {
-  path: 'employee/add', component: EmployeeAddEditComponent
-}, {
-  path: 'employee/edit/:id',
-  component: EmployeeAddEditComponent,
-  canActivateChild: [EditEmployeeGuard],
-  canDeactivate: [SaveEditEmployeeGuard]
-}, {
-  path: 'employee/:id',
-  component: EmployeeDetailsComponent,
-  canActivateChild: [EditEmployeeGuard]
-}];
+  path: 'employees', component: EmployeeListComponent,
+  children: [{
+    path: 'add', component: EmployeeAddEditComponent
+  }, {
+    path: 'edit/:id',
+    component: EmployeeAddEditComponent,
+    canActivate: [EditEmployeeGuard],
+    canDeactivate: [SaveEditEmployeeGuard]
+  }, {
+    path: 'detail/:id',
+    component: EmployeeDetailsComponent,
+    canActivateChild: [EditEmployeeGuard]
+  }]
+} ];
 
 @NgModule({
   imports: [
@@ -29,6 +31,6 @@ const routes: Routes = [{
     RouterModule.forChild(routes),
     CoreModule
   ],
-  declarations: [EmployeeListComponent, EmployeeAddEditComponent, EmployeeDetailsComponent]
+  declarations: [EmployeeListComponent, EmployeeAddEditComponent, EmployeeDetailsComponent, EmployeeGenderPipe]
 })
 export class EmployeeModule { }

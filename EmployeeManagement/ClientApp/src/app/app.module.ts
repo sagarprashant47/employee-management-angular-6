@@ -13,6 +13,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DepartmentModule } from './department/department.module';
 import { EmployeeModule } from './employee/employee.module';
 import { CoreModule } from './core/core.module';
+import { HighlightEmployeeDirective } from './employee/highlight-employee.directive';
+
 
 @NgModule({
   declarations: [
@@ -20,7 +22,8 @@ import { CoreModule } from './core/core.module';
     NavMenuComponent,
     HomeComponent,
     CounterComponent,
-    FetchDataComponent
+    FetchDataComponent,
+    HighlightEmployeeDirective
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Department } from '../../model/department.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 @Component({
   selector: 'app-department-add-edit',
@@ -12,6 +12,8 @@ import { HttpClient } from '@angular/common/http';
 export class DepartmentAddEditComponent implements OnInit {
   departmentForm: FormGroup;
   isEdit: boolean;
+  editDepartment: Department;
+  labelText: string;
   constructor(private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
@@ -19,22 +21,21 @@ export class DepartmentAddEditComponent implements OnInit {
 
   ngOnInit() {
     this.isEdit = this.route.snapshot.paramMap.has('id');
+    this.InitializeForm();
     if (this.isEdit) {
+      this.labelText = 'Edit';
       const departmentId = +this.route.snapshot.paramMap.get('id');
-      this.http.get<Department>('/api/department/' + departmentId).subscribe(result => {
+      this.http.get<Department>(`/api/departments/${departmentId}`).subscribe(result => {
+        this.editDepartment = result;
         this.InitializeFormWithExistingData(result);
       });
     } else {
-      this.InitializeForm();
+      this.labelText = 'Create';
     }
   }
 
   private InitializeForm(): void {
     this.departmentForm = this.fb.group({
-      Id: ['', [
-        Validators.required,
-        Validators.pattern('^\d+$')
-      ]],
       Name: ['', [
         Validators.required
       ]]
@@ -42,31 +43,35 @@ export class DepartmentAddEditComponent implements OnInit {
   }
 
   private InitializeFormWithExistingData(department: Department): void {
-    this.InitializeForm();
-    this.departmentForm.setValue({
-      Id: department.Id,
-      Name: department.Name
+    this.departmentForm.patchValue({
+      Name: department.name
     });
   }
 
-  public SaveDepartment(department: Department): void {
-    this.http.post('/api/department', {
-      body: department
+  private SaveDepartment(name: string): void {
+    this.http.post('/api/departments', {Name: name}).subscribe(response => {
+      console.log(response);
+      this.departmentForm.reset();
+      this.router.navigate(['/department']);
+    }, error => {
+      console.log(error);
     });
   }
 
-  public EditDepartment(department: Department): void {
-    this.http.put('/api/department/' + department.Id, {
-      body: department
+  private EditDepartment(department: Department): void {
+    this.http.put('/api/departments/' + department.id, department).subscribe(response => {
+      console.log(response);
+      this.departmentForm.reset();
+      this.router.navigate(['/department']);
     });
   }
 
-  public Save(department: Department): void {
+  public Save(): void {
     if (this.isEdit) {
-      this.EditDepartment(department);
+      this.editDepartment.name = this.departmentForm.value.Name;
+      this.EditDepartment(this.editDepartment);
     } else {
-      this.SaveDepartment(department);
+      this.SaveDepartment(this.departmentForm.value.Name);
     }
-    this.router.navigate(['/department']);
   }
 }

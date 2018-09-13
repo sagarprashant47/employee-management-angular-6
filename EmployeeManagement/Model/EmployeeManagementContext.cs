@@ -10,7 +10,8 @@ namespace EmployeeManagement.Model
     {
         public EmployeeManagementContext(DbContextOptions<EmployeeManagementContext> options): base(options)
         {
-            
+            this.Database.EnsureCreated();            
+
         }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Department> Departments { get; set; }
