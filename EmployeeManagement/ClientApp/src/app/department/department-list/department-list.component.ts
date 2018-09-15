@@ -12,39 +12,40 @@ import { Observable } from 'rxjs';
 export class DepartmentListComponent implements OnInit {
   departmentList: Department[];
   IsLoading: boolean;
-//   departments: Department[] = [{
-//     id: 1,
-//     name: 'HR',
-//     employees: [
-//         {
-//             id: 1,
-//             name: 'Chintan'
-//         }
-//     ]
-// },
-// {
-//     id: 2,
-//     name: 'IT',
-//     employees: [
-//         {
-//             id: 3,
-//             name: 'Aamir'
-//         }
-//     ]
-// }];
+  departments: Department[] = [{
+    id: 1,
+    name: 'HR',
+    employees: [
+        {
+            id: 1,
+            name: 'Chintan'
+        }
+    ]
+},
+{
+    id: 2,
+    name: 'IT',
+    employees: [
+        {
+            id: 3,
+            name: 'Aamir'
+        }
+    ]
+}];
 
   constructor(private http: HttpClient, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    // this.departmentList = this.departments;
-    this.IsLoading = true;
+     // this.departmentList = this.departments;
     this.route.data.subscribe((data: {departmentList: Department[]}) => {
       this.departmentList = data.departmentList;
     });
   }
 
   OnEmployeesStrike(value: boolean) {
-
+    if (value) {
+      console.log('Employees have gone on strike!!!');
+    }
   }
 
 }

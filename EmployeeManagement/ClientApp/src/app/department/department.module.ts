@@ -21,7 +21,7 @@ const routes: Routes = [
     component: DepartmentListComponent,
     resolve: {
       departmentList: DepartmentListResolver
-    },
+    }
   },
     {
       path: 'department/add',

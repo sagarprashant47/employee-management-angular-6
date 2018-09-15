@@ -16,7 +16,9 @@ export class DepartmentChildDetailComponent implements OnInit, AfterViewInit {
 
   @Output() strike: EventEmitter<boolean>;
 
-  constructor() { }
+  constructor() {
+    this.strike = new EventEmitter<boolean>();
+   }
 
   ngOnInit() {
   }

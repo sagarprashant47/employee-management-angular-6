@@ -33,7 +33,9 @@ import { HighlightEmployeeDirective } from './employee/highlight-employee.direct
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
-    ]),
+    ],{
+      enableTracing: true
+    }),
     BrowserAnimationsModule,
     DepartmentModule,
     EmployeeModule
