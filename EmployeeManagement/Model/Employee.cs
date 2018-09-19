@@ -14,4 +14,14 @@ namespace EmployeeManagement.Model
         public string ProfilePic { get; set; }
         public virtual Department Department { get; set; }
     }
+
+    public class EmployeeViewModel
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public Gender Gender { get; set; }
+        public double Salary { get; set; }
+        public string ProfilePic { get; set; }
+        public int? DepartmentId { get; set; }
+    }
 }

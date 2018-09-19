@@ -8,28 +8,30 @@ import { EditEmployeeGuard } from './edit-employee.guard';
 import { SaveEditEmployeeGuard } from './save-edit-employee.guard';
 import { CoreModule } from '../core/core.module';
 import { EmployeeGenderPipe } from './employee-gender.pipe';
+import { ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [{
-  path: 'employees', component: EmployeeListComponent,
-  children: [{
-    path: 'add', component: EmployeeAddEditComponent
+    path: 'employees', component: EmployeeListComponent,
+  },
+  {
+    path: 'employees/add', component: EmployeeAddEditComponent
   }, {
-    path: 'edit/:id',
+    path: 'employees/edit/:id',
     component: EmployeeAddEditComponent,
     canActivate: [EditEmployeeGuard],
     canDeactivate: [SaveEditEmployeeGuard]
   }, {
-    path: 'detail/:id',
+    path: 'employees/detail/:id',
     component: EmployeeDetailsComponent,
     canActivateChild: [EditEmployeeGuard]
-  }]
-} ];
+  }
+ ];
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    CoreModule
+    CoreModule, ReactiveFormsModule
   ],
   declarations: [EmployeeListComponent, EmployeeAddEditComponent, EmployeeDetailsComponent, EmployeeGenderPipe]
 })

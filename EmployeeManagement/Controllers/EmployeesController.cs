@@ -83,14 +83,21 @@ namespace EmployeeManagement.Controllers
 
         // POST: api/Employees
         [HttpPost]
-        public async Task<IActionResult> PostEmployee([FromBody] Employee employee)
+        public async Task<IActionResult> PostEmployee([FromBody] EmployeeViewModel employee)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            _context.Employees.Add(employee);
+            Employee emp = new Employee();
+            emp.Gender = employee.Gender;
+            emp.Name = employee.Name;
+            emp.Salary = employee.Salary;
+            emp.ProfilePic = employee.ProfilePic;
+            emp.Department = _context.Departments.First(x => x.Id == employee.DepartmentId);
+
+            _context.Employees.Add(emp);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetEmployee", new { id = employee.Id }, employee);

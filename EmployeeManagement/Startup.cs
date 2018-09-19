@@ -23,7 +23,7 @@ namespace EmployeeManagement
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            var connection = @"Server=.\SQLEXPRESS;Database=EFGetStarted.AspNetCore.NewDb;Trusted_Connection=True;ConnectRetryCount=0;Integrated Security=SSPI;";
+            var connection = @"Data Source=10.128.49.9;Initial Catalog=Training_Prashant;User ID=gcidev;Password=devgci";
             services.AddDbContext<EmployeeManagementContext>
                 (options => options.UseSqlServer(connection));
             // In production, the Angular files will be served from this directory
