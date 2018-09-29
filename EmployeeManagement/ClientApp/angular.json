@@ -48,7 +48,8 @@
               "aot": true,
               "extractLicenses": true,
               "vendorChunk": true,
-              "buildOptimizer": true
+              "buildOptimizer": true,
+              "progress": false
             },
             "hmr": {
               "fileReplacements": [
