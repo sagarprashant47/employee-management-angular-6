@@ -1,7 +1,7 @@
 import { Injectable, ErrorHandler, Injector } from '@angular/core';
 import { LoggingServiceService } from './logging-service.service';
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
-import { StackTrace } from 'stacktrace-js';
+import  * as StackTrace  from 'stacktrace-js';
 
 @Injectable()
 export class GlobalErrorHandlerService implements ErrorHandler {
@@ -14,16 +14,19 @@ export class GlobalErrorHandlerService implements ErrorHandler {
       ? location.path() : '';
 
    // get the stack trace, lets grab the last 10 stacks only
-    StackTrace.fromError(error).then(stackframes => {
-      const stackString = stackframes
-        .splice(0, 20)
-        .map(function(sf) {
-          return sf.toString();
-        }).join('\n');
+    //StackTrace.fromError(error).then(stackframes => {
+    //  const stackString = stackframes
+    //    .splice(0, 20)
+    //    .map(function(sf) {
+    //      return sf.toString();
+    //    }).join('\n');
 
-    // log on the server
-      loggingService.Log({ message, url, stack: stackString });
-    });
+    //// log on the server
+      
+    //});
+
+    loggingService.Log({ message, url, stack: "" });
+    
   }
 
   constructor(private readonly injector: Injector) { }

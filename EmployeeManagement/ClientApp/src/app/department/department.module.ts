@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DepartmentListComponent } from './department-list/department-list.component';
 import { DepartmentAddEditComponent } from './department-add-edit/department-add-edit.component';
@@ -13,6 +13,7 @@ import { DepartmentListResolver } from './department-list.resolver';
 import { DepartmentAppendPipe } from './department-append.pipe';
 import { HighlightDirective } from './highlight.directive';
 import { DepartmentChildDetailComponent } from './department-child-detail/department-child-detail.component';
+//import { errorHandler } from '@angular/platform-browser/src/browser';
 
 
 const routes: Routes = [

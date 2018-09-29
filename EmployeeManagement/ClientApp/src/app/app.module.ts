@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
@@ -14,6 +14,7 @@ import { DepartmentModule } from './department/department.module';
 import { EmployeeModule } from './employee/employee.module';
 import { CoreModule } from './core/core.module';
 import { HighlightEmployeeDirective } from './employee/highlight-employee.directive';
+import { GlobalErrorHandlerService } from './core/global-error-handler.service';
 
 
 @NgModule({
@@ -33,14 +34,17 @@ import { HighlightEmployeeDirective } from './employee/highlight-employee.direct
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
-    ],{
-      enableTracing: true
+    ], {
+        enableTracing: false
     }),
     BrowserAnimationsModule,
     DepartmentModule,
     EmployeeModule
   ],
-  providers: [],
+  providers: [{
+    provide: ErrorHandler,
+    useClass: GlobalErrorHandlerService
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
